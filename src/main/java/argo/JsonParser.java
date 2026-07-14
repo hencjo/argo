@@ -45,9 +45,10 @@ public final class JsonParser {
 
     private static String asString(final Reader reader, final StringBuilder stringBuilder) throws IOException {
         stringBuilder.setLength(0);
-        int c;
-        while ((c = reader.read()) != -1) {
-            stringBuilder.append((char) c);
+        final char[] buffer = new char[1024];
+        int charsRead;
+        while ((charsRead = reader.read(buffer)) != -1) {
+            stringBuilder.append(buffer, 0, charsRead);
         }
         return stringBuilder.toString();
     }
